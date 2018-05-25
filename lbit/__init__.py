@@ -41,7 +41,7 @@ from os import path
 
 
 
-console output will appear in /var/log/apache2/error.log
+#console output will appear in /var/log/apache2/error.log
 
 
 
