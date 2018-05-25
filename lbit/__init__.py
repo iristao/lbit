@@ -10,9 +10,9 @@ DIR = path.dirname(__file__)
 def root():
     print "=====================================\nConsole Message\n"
     print DIR + "\n====================================="
-    body = "<h2> Deployment Test </h2>"
+    body = "<h2> Longer Blockchain Iced Tea </h2>"
     body+= "DIR: " + DIR + "<br>"
-    body+= '<img src="' + url_for('static', filename='img/sacrifice.jpg') + '" width="500"</img>'
+    body+= '<img src="' + url_for('static', filename='img/icedtea.jpeg') + '" width="500"</img>'
     return body
 
 #================= Login =================
