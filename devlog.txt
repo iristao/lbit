@@ -31,3 +31,6 @@ LESSONS LEARNED
 
 irisT -- 2018-05-15 07:25
 worked on design document
+
+irisT -- 2018-05-17 07:30
+deployment test
