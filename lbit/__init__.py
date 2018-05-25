@@ -12,7 +12,7 @@ def root():
     print DIR + "\n====================================="
     body = "<h2> Longer Blockchain Iced Tea </h2>"
     body+= "DIR: " + DIR + "<br>"
-    body+= '<img src="' + url_for('static', filename='img/sacrifice.jpg') + '" width="500"</img>'
+    body+= '<img src="' + url_for('static', filename='img/icedtea.jpeg') + '" width="500"</img>'
     return body
 
 #================= Login =================
