@@ -12,19 +12,19 @@ def root():
     print DIR + "\n====================================="
     body = "<h2> Longer Blockchain Iced Tea </h2>"
     body+= "DIR: " + DIR + "<br>"
-    body+= '<img src="' + url_for('static', filename='img/icedtea.jpeg') + '" width="500"</img>'
+    body+= '<img src="' + url_for('static', filename='img/sacrifice.jpg') + '" width="500"</img>'
     return body
 
 #================= Login =================
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
-        else:
-            return redirect(url_for('home'))
-    return render_template('login.html', error=error)
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     error = None
+#     if request.method == 'POST':
+#         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+#             error = 'Invalid Credentials. Please try again.'
+#         else:
+#             return redirect(url_for('home'))
+#     return render_template('login.html', error=error)
 
 
 
@@ -34,3 +34,15 @@ def login():
 if __name__ == '__main__':
     app.debug = True #DANGER DANGER! Set to FALSE before deployment!
     app.run()
+
+
+from flask import Flask, url_for
+from os import path
+
+
+
+console output will appear in /var/log/apache2/error.log
+
+
+
+
