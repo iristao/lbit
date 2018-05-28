@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from os import path
-from flask_wtf import FlaskForm
+
 
 app = Flask(__name__)
 DIR = path.dirname(__file__)
