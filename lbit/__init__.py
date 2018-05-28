@@ -1,19 +1,25 @@
 from flask import Flask, render_template, redirect, url_for, request
 from os import path
+from flask_wtf import FlaskForm
 
 app = Flask(__name__)
-
 DIR = path.dirname(__file__)
 
-#================= Root =================
+
 @app.route('/')
 def root():
-    print "=====================================\nConsole Message\n"
-    print DIR + "\n====================================="
-    body = "<h2> Longer Blockchain Iced Tea </h2>"
-    body+= "DIR: " + DIR + "<br>"
-    body+= '<img src="' + url_for('static', filename='img/icedtea.jpeg') + '" width="500"</img>'
-    return body
+	return render_template('homepage.html')
+
+@app.route('/login')
+def login():
+	return render_template('login.html')
+
+@app.route('/signup')
+def signup():
+	return render_template('signup.html')
+
+
+
 
 #================= Login =================
 # @app.route('/login', methods=['GET', 'POST'])
@@ -25,7 +31,6 @@ def root():
 #         else:
 #             return redirect(url_for('home'))
 #     return render_template('login.html', error=error)
-
 
 
 #================= Debug =================
