@@ -34,3 +34,6 @@ worked on design document
 
 irisT -- 2018-05-17 07:30
 deployment test
+
+irisT -- 2018-05-25 08:00
+linked droplet to lbit github repo
