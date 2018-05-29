@@ -1,11 +1,15 @@
-from flask import Flask, render_template, redirect, url_for, request
-from os import path
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+import os, sqlite3, hashlib
 
 
-app = Flask(__name__)
-DIR = path.dirname(__file__)
+SUCCESS = 1
+BAD_PASS = -1
+BAD_USER = -2
 
-app.secret_key = os.urandom(64)
+form_site = Flask(__name__)
+#DIR = path.dirname(__file__)
+
+form_site.secret_key = os.urandom(64)
 
 execfile("db_builder.py")
 
@@ -90,32 +94,32 @@ def auth():
     return redirect(url_for('root'))
 
 
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
-        else:
-            return redirect({{ url_for('signup') }}) 
-    return render_template('login.html', error=error)
+@form_site.route('/logout', methods=['POST', "get"])
+#removes user from session
+def logout():
+    if 'user' in session:
+        flash(session['user'] + " logged out.")
+        session.pop('user')
+    return redirect( url_for('root') )
 
-@app.route('/signup')
-def signup():
-	return render_template('signup.html')
-
-@app.route('/escalator')
+@form_site.route('/escalator')
 def escalator():
 	return render_template('escalator.html')
 
-@app.route('/logout')
-def logout():
-	return render_template('logout.html')
 
-@app.route('/floor')
+@form_site.route('/welcome', methods=['POST', 'GET'])
+#welcomes user or redirects back to root if logged out
+def welcome():
+    if 'user' not in session:
+        return redirect( url_for('root') )
+    else:
+        return render_template('homepage.html', user=session['user'], title='Welcome')
+
+@form_site.route('/floor')
 def floor():
 	return render_template('floor.html')
 
-@app.route('/stats')
+@form_site.route('/stats')
 def stats():
     return render_template('stats.html')
 
@@ -136,8 +140,8 @@ def stats():
 #DANGER DANGER! Set to FALSE before deployment!
 
 if __name__ == '__main__':
-    app.debug = True #DANGER DANGER! Set to FALSE before deployment!
-    app.run()
+    form_site.debug = True #DANGER DANGER! Set to FALSE before deployment!
+    form_site.run()
 
 
 from flask import Flask, url_for
