@@ -4,10 +4,19 @@
 
 {% block title %}
 Welcome!
+{% block body %}
+
+
+<body class = "welcome">
+<div class = "centerBox">
+<div class = "teamName">
+<h2>Welcome {{ user }}</h2>
+</div>
+<div class = "flash">
+    {% set messages = get_flashed_messages() %}
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+</div>
+</div>
 {% endblock %}
-
-{% block page_content %}
-<h1>Welcome, fellas!</h1>
-{% endblock %}
-
-

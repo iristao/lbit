@@ -1,29 +1,36 @@
 {% extends "base.html" %}
 
 {% block title %}
-Log In 
+Log In
 {% endblock %}
 
 
 {% block page_content %}
-    <div class="container">
+<body class = "root">
+    <img style="width: 240px; display: block; margin: 0 auto;" src = "{{ url_for('static',filename='images/tacoCat.png') }}">
+    <div class = "centerBox">
+      <div class = "teamName">
+      </div>
+      </div>
+    <div class = "welcomeTitle" style = "overflow:hidden">
+      <p class="teamName">
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please log in</h2>
-        <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
+      <div class = "accountBox" style = "overflow:hidden; float:right;" >
+      <form style ="float:right" method="POST" action="/auth">
+        <div class = "flash">
+            {% set messages = get_flashed_messages() %}
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+        Username: <input type ="text" name= "user" class ="accountField" > <br>
+        Password : <input type ="password" name = "pw" class ="accountField">
+        <br>
+          <input type="submit" class = "login right button" value = "Log In">
+          <input type="submit" class = "register left button" formaction="/register" value="Register">
+        </form>
+      </div>
+      </div>
+      </body>
 
-    </div> 
-
-{% endblock %} 
-
-
+{% endblock %}
