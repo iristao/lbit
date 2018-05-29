@@ -18,7 +18,9 @@ def login():
 def signup():
 	return render_template('signup.html')
 
-
+@app.route('/escalator')
+def escalator():
+	return render_template('escalator.html')
 
 
 #================= Login =================
