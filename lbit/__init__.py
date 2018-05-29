@@ -14,6 +14,15 @@ def root():
 def login():
 	return render_template('login.html')
 
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect({{ url_for('signup') }}) 
+    return render_template('login.html', error=error)
+
 @app.route('/signup')
 def signup():
 	return render_template('signup.html')
@@ -21,6 +30,18 @@ def signup():
 @app.route('/escalator')
 def escalator():
 	return render_template('escalator.html')
+
+@app.route('/logout')
+def logout():
+	return render_template('logout.html')
+
+@app.route('/floor')
+def floor():
+	return render_template('floor.html')
+
+@app.route('/stats')
+def stats():
+    return render_template('stats.html')
 
 
 #================= Login =================

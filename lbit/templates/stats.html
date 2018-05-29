@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Escalator Stats
+{% endblock %}
+
+{% block style %} 
+<style>
+      #graph_title {
+        align-self: center;
+          color: grey;
+          font-size: 40pt;
+          font-weight: 200;
+          font-family: Garamond;
+          margin: 20px;
+      }
+
+
+
+</style>
+{% endblock %}
+
+{% block page_content %}
+
+<h1 id="graph_title" style="text-align: center">Escalator Stats</h1>
+
+<div class="modal-body row">
+
+		<br> <br> <br>
+		<div style="font-size: 16px; margin-left: 10px;">
+			<p style="font-size: 26px"><b>Choose an Escalator:</b></p>
+			From 
+			<select>
+			  <option value="2">2</option>
+			  <option value="3">3</option>
+			  <option value="4">4</option>
+			  <option value="5">5</option>
+			  <option value="6">6</option>
+			  <option value="7">7</option>
+			  <option value="8">8</option>
+			  <option value="9">9</option>
+
+			</select>
+			floor to
+			<select>
+			  <option value="2">2</option>
+			  <option value="3">3</option>
+			  <option value="4">4</option>
+			  <option value="5">5</option>
+			  <option value="6">6</option>
+			  <option value="7">7</option>
+			  <option value="8">8</option>
+			  <option value="9">9</option>
+			</select>
+			floor<br>
+		</div>
+
+
+	<div class="col-md-9">
+      <!-- Your second column here -->
+      <div id="graph" transform="translate(200,-60)">
+      </div>
+      
+      <p id="displayInfoTitle" style="text-align: center; font-size=24px;">
+      </p>
+    
+      <p id="displayInfo" style="text-align: center">
+      </p>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %} 
