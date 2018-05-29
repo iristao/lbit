@@ -15,8 +15,16 @@ Escalator Stats
           font-family: Garamond;
           margin: 20px;
       }
+	.axis {
+	  font: 10px sans-serif;
+	}
 
-
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
 
 </style>
 {% endblock %}
@@ -28,7 +36,8 @@ Escalator Stats
 <div class="modal-body row">
 
 		<br> <br> <br>
-		<div style="font-size: 16px; margin-left: 10px;">
+		<div style="font-size: 16px; margin-left: 10px; align-self: center;">
+			<h2 style="font-size: 26px; color: steelblue;"> <b>Times Broken (/ Month):</b></h2>
 			<p style="font-size: 26px"><b>Choose an Escalator:</b></p>
 			From 
 			<select>
@@ -70,10 +79,8 @@ Escalator Stats
     </div>
 </div>
 
+<script src="http://d3js.org/d3.v3.min.js"></script>
 
-
-
-
-
+<script src="static/js/floor.js"></script>
 
 {% endblock %} 
