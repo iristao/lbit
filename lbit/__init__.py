@@ -47,10 +47,10 @@ def check_newuser(username):
 @form_site.route('/', methods=['POST', 'GET'])
 #login page if user is not in session, otherwise welcome
 def root():
-    if 'user' not in session:
-        return render_template('login.html', title="Login")
-    else:
-        return redirect( url_for('welcome') )
+#    if 'user' not in session:
+#        return redirect( url_for('login') )
+ #   else:
+     return redirect( url_for('welcome') )
 
 @form_site.route('/signup', methods=['POST', 'GET'])
 #register page is user is not in session, otherwise root
@@ -110,10 +110,10 @@ def escalator():
 @form_site.route('/welcome', methods=['POST', 'GET'])
 #welcomes user or redirects back to root if logged out
 def welcome():
-    if 'user' not in session:
-        return redirect( url_for('root') )
-    else:
-        return render_template('homepage.html', user=session['user'], title='Welcome')
+#    if 'user' not in session:
+ #       return redirect( url_for('root') )
+  #  else:
+	return render_template('homepage.html', user="Long Island", title='Welcome')
 
 @form_site.route('/floor')
 def floor():
