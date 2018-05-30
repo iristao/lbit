@@ -6,31 +6,59 @@ Log In
 
 
 {% block page_content %}
+<br><br><br>
 <body class = "root">
-    <img style="width: 240px; display: block; margin: 0 auto;" src = "{{ url_for('static',filename='images/tacoCat.png') }}">
-    <div class = "centerBox">
-      <div class = "teamName">
-      </div>
-      </div>
-    <div class = "welcomeTitle" style = "overflow:hidden">
-      <p class="teamName">
+    <div class="tab-content" >
+    
+ <br><h2 class="text-center"> Login </h2>
 
-      <div class = "accountBox" style = "overflow:hidden; float:right;" >
-      <form style ="float:right" method="POST" action="/auth">
-        <div class = "flash">
-            {% set messages = get_flashed_messages() %}
-            {% for message in messages %}
-            {{message}}
-            {% endfor %}
-        </div>
-        Username: <input type ="text" name= "user" class ="accountField" > <br>
-        Password : <input type ="password" name = "pw" class ="accountField">
-        <br>
-          <input type="submit" class = "login right button" value = "Log In">
-          <input type="submit" class = "register left button" formaction="/register" value="Register">
-        </form>
-      </div>
-      </div>
+  <div class="modal-body row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 container login">
+      <form method="POST" action="/login">
+  <div class="form-group">
+          <label for="user">Email</label>
+          <input name="email" type="text" class="form-control" id="email" placeholder="Enter an @stuy.edu email">
+  </div>
+  <div class="form-group">
+          <label for="pass">Password</label>
+          <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
+  </div>
+  <input class="btn btn-info btn-block" type="submit" name="form" value="Login">
+      </form>
+ 
+</div>
+<div class="col-md-4"></div>
+</div> 
+  
+
+  
+<br>
+ <h2 class="text-center"> Create Account </h2>
+  <br>
+  <div class="modal-body row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 container login">
+      <form method="POST" action="/login">
+  <div class="form-group">
+    <label for="username0"> Email </label>
+    <input type="text" class="form-control" id="username0" name="email" placeholder="Enter an @stuy.edu email">
+  </div>
+  <div class="form-group">
+    <label for="password0"> Password </label>
+    <input type="password" class="form-control" id="password0" name="password" placeholder="Enter password">
+  </div>
+  <div class="form-group">
+    <label for="password1"> Confirm password </label>
+    <input type="password" class="form-control" id="password1" name="confirm_password" placeholder="Retype password">
+  </div>
+  <button class="btn btn-primary btn-block" type="submit" name="form" value="create">Submit</button>
+      </form>
+</div>
+<div class="col-md-4"></div>
+</div> 
+  
+
       </body>
 
 {% endblock %}

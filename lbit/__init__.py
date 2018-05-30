@@ -1,22 +1,18 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import os, sqlite3, hashlib
 
-
-SUCCESS = 1
-BAD_PASS = -1
-BAD_USER = -2
+USER_SESSION = "logged_in"
 
 form_site = Flask(__name__)
+form_site.secret_key = os.urandom(64)
+
+
+
 #DIR = path.dirname(__file__)
 
-form_site.secret_key = os.urandom(64)
 
 execfile("db_builder.py")
 
-#encrypts password
-def encrypt_password(password):
-    encrypted_pass = hashlib.sha1(password.encode('utf-8')).hexdigest()
-    return encrypted_pass
 
 #create dict of usernames and passwords
 def user_dict():
@@ -26,81 +22,22 @@ def user_dict():
         users[data[0]] = data[1]
     return users
 
-#authenticate username and password
-def authenticate(username, password):
-    users = user_dict()
-    if username in users.keys():
-        if password == users[username]:
-            return SUCCESS
-        else:
-            return BAD_PASS
-    else:
-        return BAD_USER
-
-#check if username already exists
-def check_newuser(username):
-    users = user_dict()
-    if username in users.keys():
-        return BAD_USER
-    return SUCCESS
-
 @form_site.route('/', methods=['POST', 'GET'])
 #login page if user is not in session, otherwise welcome
 def root():
-#    if 'user' not in session:
-#        return redirect( url_for('login') )
- #   else:
-     return redirect( url_for('welcome') )
+    if is_logged():
+        return redirect( url_for('login') )
+    else:
+        return redirect( url_for('welcome') )
 
 @form_site.route('/signup', methods=['POST', 'GET'])
 #register page is user is not in session, otherwise root
 def register():
-    if 'user' not in session:
+    if is_logged():
         return render_template('signup.html', title="Register")
     else:
         return redirect( url_for('root') )
 
-@form_site.route('/createaccount', methods=['POST', 'GET'])
-#creates an account and runs encryption function on password
-def create_account():
-    username = request.form['user']
-    password = request.form['pw']
-    result = check_newuser(username)
-    users = user_dict()
-    if result == SUCCESS:
-        with db:
-            c.execute("INSERT INTO users VALUES (?, encrypt(?))", (username, password))
-        users[username] = password
-        flash(username + " registered.")
-    elif result == BAD_USER:
-        flash("That username is already in use. Try another one")
-        return redirect(url_for('register'))
-    return redirect(url_for('root'))
-
-@form_site.route('/auth', methods=['POST', 'GET'])
-#checks if login information is correct
-def auth():
-    username = request.form['user']
-    password = request.form['pw']
-    encrypted = encrypt_password(password)
-    result = authenticate(username, encrypted)
-    if result == SUCCESS:
-        session['user'] = username
-        flash(session['user'] + " successfully logged in.")
-    if result == BAD_PASS:
-        flash("Incorrect password.")
-    elif result == BAD_USER:
-        flash("Incorrect Username.")
-    return redirect(url_for('root'))
-
-
-@form_site.route('/logout', methods=['POST', "get"])
-#removes user from session
-def logout():
-    if 'user' in session:
-        flash(session['user'] + " logged out.")
-        session.pop('user')
-    return redirect( url_for('root') )
 
 @form_site.route('/escalator')
 def escalator():
@@ -110,10 +47,10 @@ def escalator():
 @form_site.route('/welcome', methods=['POST', 'GET'])
 #welcomes user or redirects back to root if logged out
 def welcome():
-#    if 'user' not in session:
- #       return redirect( url_for('root') )
-  #  else:
-	return render_template('homepage.html', user="Long Island", title='Welcome')
+    if is_logged():
+         return redirect( url_for('root') )
+    else:
+	   return render_template('homepage.html', user="Long Island", title='Welcome')
 
 @form_site.route('/floor')
 def floor():
@@ -123,17 +60,104 @@ def floor():
 def stats():
     return render_template('stats.html')
 
+def is_logged():
+    return USER_SESSION in session
 
-#================= Login =================
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error = None
-#     if request.method == 'POST':
-#         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-#             error = 'Invalid Credentials. Please try again.'
-#         else:
-#             return redirect(url_for('home'))
-#     return render_template('login.html', error=error)
+def is_null(username, password, confpw):
+    return username == "" or password == "" or confpw == ""
+
+def add_session(username, password):
+    if is_null(username, password, "filler"):
+        flash("Username or password is blank")
+        return False
+    if(login_test(username, password)):
+        session[USER_SESSION] = username
+        return True
+    else:
+        flash("Incorrect login credentials")
+        return False
+
+@form_site.route("/login", methods=["GET", "POST"])
+def login():
+    if is_logged():
+        return redirect(url_for("root"))
+    elif (request.method == "GET"):
+        return render_template("login.html")
+    else:
+        email = request.form["email"]
+        password = request.form["password"]
+        if request.form["form"] == "Login":
+            if add_session(email, password):
+                return redirect(url_for("root"))
+        else:
+            if(password != request.form["confirm_password"]):
+                flash("Oops! Your Password and Confirm Password did not match. :(")
+            elif not create_account(email, password):
+                flash("Invalid Email Address: It must be a  @stuy.edu email address that has not been previously registered.")
+            else:
+                flash("Congratulations! You have created an account successfully. :)")
+    return render_template("login.html")
+
+@form_site.route("/logout")
+def logout():
+    if is_logged():
+        session.pop(USER_SESSION)
+    return redirect(url_for("login"))
+
+# Login - Returns true if successful, false otherwise
+def login_test(email, password):
+    db = sqlite3.connect("elevators.db")
+    c = db.cursor()
+    c.execute("SELECT email, password FROM accounts WHERE email = '%s'" % (email));
+    for account in c:
+        print account
+        uemail = account[0]
+        passw = account[1]
+        # Check if email and encrypted password match
+        if email == uemail and encrypt_password(password) == passw:
+            print "Successful Login"
+            return True
+    print "Login Failed"
+    return False
+    
+# Encrypt password - Returns SHA256
+def encrypt_password(password):
+    encrypted = hashlib.sha256(password).hexdigest()
+    return encrypted
+
+# Create account - Returns true if successful, false otherwise
+def create_account(email, password):
+    db = sqlite3.connect("elevators.db")
+    c = db.cursor()
+    if not does_email_exist(email) and is_valid_email(email):
+        # Add user to accounts table
+        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
+        db.commit()
+        db.close()
+        print "Create Account Successful"
+        return True
+    print "Create Account Failed"
+    return False
+
+# Checks if email exists - Returns true if email exists, false otherwise
+def does_email_exist(email):
+    db = sqlite3.connect("elevators.db")
+    c = db.cursor()
+    c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
+    for account in c:
+        # Username exists
+        print "Email exists"
+        return True
+    print "Email does not exist"
+    return False
+
+# Checks if email is stuy.edu - Returns true if it is, false otherwise
+def is_valid_email(email):
+    if (email.find("@stuy.edu") != -1) and (email.split("@")[1] == "stuy.edu"):
+        print "Valid Email"
+        return True
+    print "Invalid Email"
+    return False
 
 
 #================= Debug =================

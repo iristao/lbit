@@ -10,7 +10,7 @@ db = sqlite3.connect(f, check_same_thread=False) #open if f exists, otherwise cr
 db.create_function('encrypt', 1, encrypt_password)
 c = db.cursor()    #facilitate db ops
 
-create_users = "CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT NOT NULL);"
+create_accounts = "CREATE TABLE accounts (email TEXT PRIMARY KEY, password TEXT);"
 #0 - default status (working)
 #1 - not working
 #2 - broken (repairs)
@@ -24,7 +24,7 @@ values_to_insert = [(23, 0), (32, 0), (24, 0), (42, 0), (35, 0), (53, 0), (46, 0
 
 
 try:
-    c.execute(create_users)
+    c.execute(create_accounts)
     c.execute(create_elevators)
     c.execute(insert_admin)
     c.executemany("INSERT INTO some_table ('item_num', 'item_name') VALUES (?, ?);", values_to_insert)
