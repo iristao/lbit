@@ -26,17 +26,10 @@ def user_dict():
 #login page if user is not in session, otherwise welcome
 def root():
     if is_logged():
-        return redirect( url_for('login') )
-    else:
         return redirect( url_for('welcome') )
-
-@form_site.route('/signup', methods=['POST', 'GET'])
-#register page is user is not in session, otherwise root
-def register():
-    if is_logged():
-        return render_template('signup.html', title="Register")
     else:
-        return redirect( url_for('root') )
+        return redirect( url_for('login') )
+
 
 
 @form_site.route('/escalator')
@@ -48,9 +41,9 @@ def escalator():
 #welcomes user or redirects back to root if logged out
 def welcome():
     if is_logged():
-         return redirect( url_for('root') )
+        return render_template('homepage.html', user="Long Island", title='Welcome')
     else:
-	   return render_template('homepage.html', user="Long Island", title='Welcome')
+        return redirect( url_for('root') )
 
 @form_site.route('/floor')
 def floor():
@@ -80,7 +73,8 @@ def add_session(username, password):
 @form_site.route("/login", methods=["GET", "POST"])
 def login():
     if is_logged():
-        return redirect(url_for("root"))
+        flash("No need, you're already logged in!")
+        return render_template("login.html", )
     elif (request.method == "GET"):
         return render_template("login.html")
     else:
