@@ -33,25 +33,7 @@ def user_dict():
 @form_site.route('/', methods=['POST', 'GET'])
 #login page if user is not in session, otherwise welcome
 def root():
-    if is_logged():
-        return redirect( url_for('welcome') )
-    else:
-        return redirect( url_for('login') )
-
-
-
-@form_site.route('/escalator')
-def escalator():
-	return render_template('escalator.html', login_user=display_name())
-
-
-@form_site.route('/welcome', methods=['POST', 'GET'])
-#welcomes user or redirects back to root if logged out
-def welcome():
-    if is_logged():
-        return render_template('homepage.html', user=session[USER_SESSION], title='Welcome', login_user=display_name())
-    else:
-        return redirect( url_for('root') )
+    return render_template('homepage.html', login_user=display_name())
 
 @form_site.route('/floor')
 def floor():
@@ -82,7 +64,6 @@ def add_session(username, password):
 def login():
     if is_logged():
         return render_template("back.html", login_user=display_name())
-        flash("No need, you're already logged in!")
     elif (request.method == "GET"):
         return render_template("login.html", login_user=display_name())
     else:
@@ -170,8 +151,6 @@ if __name__ == '__main__':
     form_site.run()
 
 
-from flask import Flask, url_for
-from os import path
 
 
 
