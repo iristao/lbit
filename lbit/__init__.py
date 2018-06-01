@@ -16,7 +16,8 @@ execfile("db_builder.py")
 
 def display_name():
     if is_logged():
-        return session[USER_SESSION]
+        ans = session[USER_SESSION]
+        return ans[0:ans.find('@')]
     else:
         return "Guest"
    
@@ -80,8 +81,8 @@ def add_session(username, password):
 @form_site.route("/login", methods=["GET", "POST"])
 def login():
     if is_logged():
-        flash("No need, you're already logged in!")
         return render_template("back.html", login_user=display_name())
+        flash("No need, you're already logged in!")
     elif (request.method == "GET"):
         return render_template("login.html", login_user=display_name())
     else:
