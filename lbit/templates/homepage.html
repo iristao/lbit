@@ -3,17 +3,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-Welcome!
+Welcome {{ user }}!
 {% endblock %}
 
-{% block body %}
+{% block page_content %}
 
 
-<body class = "welcome">
-<div class = "centerBox">
-<div class = "teamName">
-<h2>Welcome {{ user }}</h2>
-</div>
+<body>
+<br>
+<h2>Welcome, {{ user }}!!!</h2>
+<br>
 <div class = "flash">
     {% set messages = get_flashed_messages() %}
     {% for message in messages %}
@@ -21,4 +20,17 @@ Welcome!
     {% endfor %}
 </div>
 </div>
+
+
+<svg width="400" height="400" id="pic" xmlns="http://www.w3.org/2000/svg">
+
+</svg>
+
+<br><br>
+<button id="working">Working</button>
+<button id="stopped">Stopped</button>
+<button id="broken">Broken</button>
+
+<script src="static/js/svg.js"></script>
+
 {% endblock %}

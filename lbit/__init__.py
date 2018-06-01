@@ -41,7 +41,7 @@ def escalator():
 #welcomes user or redirects back to root if logged out
 def welcome():
     if is_logged():
-        return render_template('homepage.html', user="Long Island", title='Welcome')
+        return render_template('homepage.html', user=session[USER_SESSION], title='Welcome')
     else:
         return redirect( url_for('root') )
 
@@ -74,7 +74,7 @@ def add_session(username, password):
 def login():
     if is_logged():
         flash("No need, you're already logged in!")
-        return render_template("login.html", )
+        return render_template("back.html")
     elif (request.method == "GET"):
         return render_template("login.html")
     else:
