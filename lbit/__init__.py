@@ -14,6 +14,13 @@ form_site.secret_key = os.urandom(64)
 execfile("db_builder.py")
 
 
+def display_name():
+    if is_logged():
+        return session[USER_SESSION]
+    else:
+        return "Guest"
+   
+
 #create dict of usernames and passwords
 def user_dict():
     users = {} #{username: password}
@@ -34,24 +41,24 @@ def root():
 
 @form_site.route('/escalator')
 def escalator():
-	return render_template('escalator.html')
+	return render_template('escalator.html', login_user=display_name())
 
 
 @form_site.route('/welcome', methods=['POST', 'GET'])
 #welcomes user or redirects back to root if logged out
 def welcome():
     if is_logged():
-        return render_template('homepage.html', user=session[USER_SESSION], title='Welcome')
+        return render_template('homepage.html', user=session[USER_SESSION], title='Welcome', login_user=display_name())
     else:
         return redirect( url_for('root') )
 
 @form_site.route('/floor')
 def floor():
-	return render_template('floor.html')
+	return render_template('floor.html', login_user=display_name())
 
 @form_site.route('/stats')
 def stats():
-    return render_template('stats.html')
+    return render_template('stats.html', login_user=display_name())
 
 def is_logged():
     return USER_SESSION in session
@@ -74,9 +81,9 @@ def add_session(username, password):
 def login():
     if is_logged():
         flash("No need, you're already logged in!")
-        return render_template("back.html")
+        return render_template("back.html", login_user=display_name())
     elif (request.method == "GET"):
-        return render_template("login.html")
+        return render_template("login.html", login_user=display_name())
     else:
         email = request.form["email"]
         password = request.form["password"]
@@ -90,7 +97,7 @@ def login():
                 flash("Invalid Email Address: It must be a  @stuy.edu email address that has not been previously registered.")
             else:
                 flash("Congratulations! You have created an account successfully. :)")
-    return render_template("login.html")
+    return render_template("login.html", login_user=display_name())
 
 @form_site.route("/logout")
 def logout():
