@@ -8,10 +8,16 @@ form_site.secret_key = os.urandom(64)
 
 
 
+
 #DIR = path.dirname(__file__)
 
+filepath = os.path.dirname(__file__) 
 
-execfile("/var/www/lbit/lbit/db_builder.py")
+filepath += "db_builder.py"
+
+
+
+execfile(filepath)
 
 
 def display_name():
