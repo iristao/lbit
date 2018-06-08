@@ -16,9 +16,9 @@ def runthisthing():
     if len(DIR) == 0:
         DIR += "db_builder.py"
     else:
-        DIR += '/'
+        DIR += "db_builder.py"
     return DIR
-
+    
 print(runthisthing())
 
 
