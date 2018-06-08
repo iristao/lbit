@@ -13,8 +13,7 @@ form_site.secret_key = os.urandom(64)
 
 filepath = os.path.dirname(__file__) 
 
-filepath += "/" 
-filepath += "db_builder.py"
+filepath += "/db_builder.py"
 
 
 
