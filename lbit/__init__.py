@@ -11,18 +11,21 @@ form_site.secret_key = os.urandom(64)
 
 #DIR = path.dirname(__file__)
 
-DIR = os.path.dirname(__file__) or ''
-if len(DIR) == 0:
-    DIR += "db_builder.py"
-else:
-    DIR += '/'
+def runthisthing():
+    DIR = os.path.dirname(__file__) 
+    if len(DIR) == 0:
+        DIR += "db_builder.py"
+    else:
+        DIR += '/'
+    return DIR
+
+print(runthisthing())
 
 
 
 
 
-
-execfile(DIR)
+#execfile(DIR)
 
 
 def display_name():
