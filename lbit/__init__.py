@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, Markup
+import tweet
 import os, sqlite3, hashlib
 
 USER_SESSION = "logged_in"
@@ -47,7 +48,9 @@ def user_dict():
 @form_site.route('/', methods=['POST', 'GET'])
 #login page if user is not in session, otherwise welcome
 def root():
-    return render_template('homepage.html', login_user=display_name())
+    #tweet.tweet_out("New test status: broken")
+    value = Markup(tweet.fin_prod)
+    return render_template('homepage.html', login_user=display_name(), embedded_tweet=value)
 
 @form_site.route('/floor')
 def floor():
@@ -116,6 +119,10 @@ def login_test(email, password):
             return True
     print "Login Failed"
     return False
+
+#update twitter status with each change
+def tweet_out(textual):
+    tweet.tweet_out(textual)
     
 # Encrypt password - Returns SHA256
 def encrypt_password(password):

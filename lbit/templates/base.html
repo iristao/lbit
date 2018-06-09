@@ -39,8 +39,6 @@
 Welcome, {{ login_user }}!
             <a class="nav-link" href="{{ url_for('login') }}">Login<span class="sr-only">(current)</span></a>
 
-   
-
 
 
     </nav>
@@ -51,10 +49,12 @@ Welcome, {{ login_user }}!
 
     <h1>{% block h1%} {% endblock %}</h1>
 
+
+
     {% endblock %}
 
 
-
+    {{embedded_tweet}}
 
   
     <!-- Optional JavaScript -->
