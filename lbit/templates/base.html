@@ -31,7 +31,17 @@
             <a class="nav-link" href="{{ url_for('stats') }}">Escalator Stats<span class="sr-only">(current)</span></a>
 	  </li>
 
- 
+	  <li class="dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">Go to Escalators
+              <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link" href="{{ url_for('floor') }}">Floors 2-3</a></li>
+              <li><a class="nav-link" href="{{ url_for('floor') }}">Floors 2-4</a></li>
+              <li><a class="nav-link" href="{{ url_for('floor') }}">Floors 3-5</a></li>
+              <li><a class="nav-link" href="{{ url_for('floor') }}">Floors 4-6</a></li>
+            </ul>
+	  </li>
+
 	
   </ul>
 

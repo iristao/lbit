@@ -28,5 +28,19 @@ path {
 
 {% block page_content %}
 
+<svg width="400" height="400" id="pic" xmlns="http://www.w3.org/2000/svg">
+
+</svg>
+
+<br><br>
+<button id="working" value="Working">Working</button>
+<button id="stopped" value="Stopped">Stopped</button>
+<button id="broken" value="Broken">Broken</button>
+
+<br><br>
+
+{{embedded_tweet}}
+
+<script src="static/js/svg.js"></script>
 
 {% endblock %}

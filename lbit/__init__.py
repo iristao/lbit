@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash, Markup
 import tweet
-import os, sqlite3, hashlib
+import os, sqlite3, hashlib, time
 
 USER_SESSION = "logged_in"
 
@@ -59,6 +59,12 @@ def floor():
 @form_site.route('/stats')
 def stats():
     return render_template('stats.html', login_user=display_name())
+
+@form_site.route('/confirm', methods=["GET", "POST"])
+def confirm():
+    stat = request.form["status"]
+    tweet.tweet_out("Updating escalator status to: " + stat + str(time.time()))
+    return render_template('confirm.html', status=stat)
 
 def is_logged():
     return USER_SESSION in session
