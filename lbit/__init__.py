@@ -64,7 +64,8 @@ def stats():
 def confirm():
     stat = request.form["status"]
     tweet.tweet_out("Updating escalator status to: " + stat + str(time.time()))
-    return render_template('confirm.html', status=stat)
+    #return render_template('confirm.html', status=stat)
+    return redirect(url_for('root'))
 
 def is_logged():
     return USER_SESSION in session
