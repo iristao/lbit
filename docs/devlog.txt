@@ -32,11 +32,41 @@ LESSONS LEARNED
 irisT -- 2018-05-15 07:25
 worked on design document
 
+dimitriyL -- 2018-05-15 21:00
+Contributed to the design document (added some images, etc.)
+
 irisT -- 2018-05-17 07:30
 deployment test
 
+dimitriyL -- 2018-05-20 13:45
+Worked on changing what happens in the droplet, and restarting/reconfiguring
+
+dimitriyL -- 2018-05-24 19:20
+Began exploring Twitter api, and created initial templates for pages
+
 irisT -- 2018-05-25 08:00
 linked droplet to lbit github repo
+
+dimitriyL -- 2018-06-04 20:30
+Added Bootstrap features and created escalator SVG
+Figured out how to link the Twitter API, and made preliminary command line calls
+
+dimitriyL -- 2018-06-07 13:45
+Changed the Bootstrap header bar on the top of the page
+Found away to retrieve Tweets using the API in JSON form
+
+dimitriyL --  2018-06-08 21:15
+Figured out how to get Tweet URLs and embed them into the page
+
+dimitriyL -- 2018-06-09 14:45
+Created a Twitter account to automatically tweet escalator information when people toggle with the buttons
+
+dimitriyL -- 2018-06-12 23:10
+Linked SQLite DB to SVG images and buttons, making it possible to change the escalator's status in the DB
+Created a second SVG, and made a page for each escalator/pair of floors
+
+dimitriyL -- 2018-06-13 19:00
+Contributed to the debugging process
 
 irisT -- 2018-06-13 04:00
 made small changes to frontend & linked logout button
