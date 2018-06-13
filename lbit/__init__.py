@@ -47,10 +47,6 @@ def floor():
     f1 = request.args.get('f1')
     f2 = request.args.get('f2')
 
-    DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db" 
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
 
         
 
@@ -70,10 +66,6 @@ def confirm():
     # db_name = "elevators.db"
     # db = sqlite3.connect(db_name)
     # c = db.cursor()
-    DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db"
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
 
     stat = request.form["status"]
     print stat
@@ -148,10 +140,6 @@ def logout():
 def login_test(email, password):
     # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
-    DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db"
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
 
     c.execute("SELECT email, password FROM accounts WHERE email = '%s'" % (email));
     for account in c:
@@ -181,11 +169,6 @@ def create_account(email, password):
 
 
     if not does_email_exist(email) and is_valid_email(email):
-        DATABASE = os.path.dirname(__file__) or '.'
-        DATABASE += "/data/elevators.db"
-        print DATABASE
-        db = sqlite3.connect(DATABASE)
-        c = db.cursor()
         # Add user to accounts table
         c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
         db.commit()
@@ -199,10 +182,7 @@ def create_account(email, password):
 def does_email_exist(email):
     # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
-    DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE += "/data/elevators.db"
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
+
     c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
     for account in c:
         # Username exists
