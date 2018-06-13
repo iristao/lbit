@@ -134,9 +134,7 @@ def login():
         else:
             if(password != request.form["confirm_password"]):
                 flash("Oops! Your Password and Confirm Password did not match. :(")
-            elif not create_account(email, password):
-                flash("Invalid Email Address: It must be a  @stuy.edu email address that has not been previously registered.")
-            else:
+        else:
                 flash("Congratulations! You have created an account successfully. :)")
     return render_template("login.html", login_user=display_name())
 
