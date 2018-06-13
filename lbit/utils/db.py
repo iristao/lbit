@@ -2,7 +2,6 @@ import sqlite3
 import os
 import sqlite3, hashlib   #enable control of an sqlite database
 
-f="elevators.db"
 
 
 
@@ -12,7 +11,7 @@ def encrypt_password(password):
 
 
 DATABASE = os.path.dirname(__file__) or '.'
-DATABASE+="/../data/elevators.db"
+DATABASE+="../data/elevators.db"
 db = sqlite3.connect(DATABASE, check_same_thread=False)
 db.create_function('encrypt', 1, encrypt_password)
 c = db.cursor()    #facilitate db ops
