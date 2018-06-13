@@ -13,6 +13,11 @@ USER_SESSION = "logged_in"
 # db = sqlite3.connect(db_name)
 # c = db.cursor()
 
+DIR = os.path.dirname(__file__) or ‘.’
+DIR += ‘/’
+DATABASE = os.path.join(DIR, 'elevators.db')
+db = sqlite3.connect(DATABASE)
+c = db.cursor()
 
 def runthisthing():
     DIR = os.path.dirname(__file__) 
