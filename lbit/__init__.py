@@ -9,8 +9,8 @@ form_site.secret_key = os.urandom(64)
 USER_SESSION = "logged_in"
 
 # db_name = "elevators.db"
-# db = sqlite3.connect(db_name)
-# c = db.cursor()
+# datab = sqlite3.connect(db_name)
+# c = datab.cursor()
 
 
 DATABASE = os.path.dirname(__file__) or '.'
@@ -74,8 +74,8 @@ def stats():
 @form_site.route('/confirm', methods=["GET", "POST"])
 def confirm():
     # db_name = "elevators.db"
-    # db = sqlite3.connect(db_name)
-    # c = db.cursor()
+    # datab = sqlite3.connect(db_name)
+    # c = datab.cursor()
 
     stat = request.form["status"]
     print stat
@@ -103,7 +103,7 @@ def confirm():
 
     c.execute(message)
 
-    db.commit()
+    datab.commit()
 
     tweet.tweet_out("Status of " + f1 + " to " + f2 + " " + direc + " escalator has been updated to " + stat + "\nTime in ticks: "  + str(time.time()))
     #return render_template('confirm.html', status=stat)
@@ -155,8 +155,8 @@ def logout():
 
 # Login - Returns true if successful, false otherwise
 def login_test(email, password):
-    # db = sqlite3.connect("elevators.db")
-    # c = db.cursor()
+    # datab = sqlite3.connect("elevators.db")
+    # c = datab.cursor()
     DATABASE = os.path.dirname(__file__) or '.'
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
@@ -186,21 +186,21 @@ def encrypt_password(password):
 
 # Create account - Returns true if successful, false otherwise
 def create_account(email, password):
-    # db = sqlite3.connect("elevators.db")
-    # c = db.cursor()
+    # datab = sqlite3.connect("elevators.db")
+    # c = datab.cursor()
 
 
     if not does_email_exist(email) and is_valid_email(email):
         # Add user to accounts table
         DATABASE = os.path.dirname(__file__) or '.'
-        DATABASE+="/data/elevators.db"
+        DATABASE += "/data/elevators.db"
         datab = sqlite3.connect(DATABASE)
         c = datab.cursor()
         print DATABASE + "5"
 
         c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
-        db.commit()
-        db.close()
+        datab.commit()
+        datab.close()
         print "Create Account Successful"
         return True
     print "Create Account Failed"
@@ -208,8 +208,8 @@ def create_account(email, password):
 
 # Checks if email exists - Returns true if email exists, false otherwise
 def does_email_exist(email):
-    # db = sqlite3.connect("elevators.db")
-    # c = db.cursor()
+    # datab = sqlite3.connect("elevators.db")
+    # c = datab.cursor()
     DATABASE = os.path.dirname(__file__) or '.'
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
