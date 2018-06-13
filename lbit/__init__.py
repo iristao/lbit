@@ -75,6 +75,11 @@ def stats():
 
 @form_site.route('/confirm', methods=["GET", "POST"])
 def confirm():
+    # db_name = "elevators.db"
+    # db = sqlite3.connect(db_name)
+    # c = db.cursor()
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
 
     stat = request.form["status"]
     print stat
@@ -93,10 +98,6 @@ def confirm():
     else:
         message = 'UPDATE elevators SET status = 0 WHERE id = ' + '"' + esco_key + '"'
     print message
-
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
-
     c.execute(message)
 
     db.commit()
