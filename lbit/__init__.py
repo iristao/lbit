@@ -15,8 +15,8 @@ USER_SESSION = "logged_in"
 
 DATABASE = os.path.dirname(__file__) or '.'
 DATABASE+="/data/elevators.db"
-db = sqlite3.connect(DATABASE)
-c = db.cursor()
+datab = sqlite3.connect(DATABASE)
+c = datab.cursor()
 print DATABASE
 
 
