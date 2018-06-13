@@ -17,7 +17,7 @@ DATABASE = os.path.dirname(__file__) or '.'
 DATABASE+="/data/elevators.db"
 datab = sqlite3.connect(DATABASE)
 c = datab.cursor()
-print DATABASE
+print DATABASE + "0"
 
 
 def display_name():
@@ -35,7 +35,8 @@ def user_dict():
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
-    
+    print DATABASE + "1"
+
     user_data = c.execute("SELECT * FROM users;")
     for data in user_data:
         users[data[0]] = data[1]
@@ -57,6 +58,7 @@ def floor():
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
+    print DATABASE + "2"
    
     c.execute('SELECT status FROM elevators WHERE id = "' + f1 + '_' + f2 + '_down"')
     down = c.fetchall()[0][0]
@@ -97,6 +99,7 @@ def confirm():
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
+    print DATABASE + "3"
 
     c.execute(message)
 
@@ -158,6 +161,7 @@ def login_test(email, password):
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
+    print DATABASE + "4"
 
     c.execute("SELECT email, password FROM accounts WHERE email = '%s'" % (email));
     for account in c:
@@ -192,8 +196,8 @@ def create_account(email, password):
         DATABASE+="/data/elevators.db"
         datab = sqlite3.connect(DATABASE)
         c = datab.cursor()
-        print DATABASE
-        
+        print DATABASE + "5"
+
         c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
         db.commit()
         db.close()
@@ -210,6 +214,7 @@ def does_email_exist(email):
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
+    print DATABASE + "6"
 
     c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
     for account in c:
