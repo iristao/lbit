@@ -19,16 +19,6 @@ DATABASE = os.path.join(DIR, 'elevators.db')
 db = sqlite3.connect(DATABASE)
 c = db.cursor()
 
-def runthisthing():
-    DIR = os.path.dirname(__file__) 
-    DIR += '/'
-    if len(DIR) == 0:
-        DIR += "db_builder.py"
-    else:
-        DIR += "db_builder.py"
-    return DIR
-    
-print(runthisthing())
 
 
 
@@ -197,7 +187,7 @@ def create_account(email, password):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
-    if not does_email_exist(email) and is_valid_email(email):
+    if is_valid_email(email):
         # Add user to accounts table
         c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
         db.commit()
@@ -207,22 +197,6 @@ def create_account(email, password):
     print "Create Account Failed"
     return False
 
-# Checks if email exists - Returns true if email exists, false otherwise
-def does_email_exist(email):
-    # db = sqlite3.connect("elevators.db")
-    # c = db.cursor()
-    DIR = os.path.dirname(__file__) or '.'
-    DIR += '/'
-    DATABASE = os.path.join(DIR, 'elevators.db')
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
-    c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
-    for account in c:
-        # Username exists
-        print "Email exists"
-        return True
-    print "Email does not exist"
-    return False
 
 # Checks if email is stuy.edu - Returns true if it is, false otherwise
 def is_valid_email(email):
