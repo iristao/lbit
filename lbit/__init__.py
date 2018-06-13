@@ -179,7 +179,8 @@ def create_account(email, password):
     # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
     DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db"
+    DATABASE += "/data/elevators.db"
+    print DATABASE
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
