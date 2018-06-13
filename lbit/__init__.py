@@ -8,13 +8,13 @@ form_site.secret_key = os.urandom(64)
 
 USER_SESSION = "logged_in"
 
-# db_name = "elevators.db/"
+# db_name = "elevators.db"
 # db = sqlite3.connect(db_name)
 # c = db.cursor()
 
 
 DATABASE = os.path.dirname(__file__) or '.'
-DATABASE+="/data/elevators.db/"
+DATABASE+="/data/elevators.db"
 db = sqlite3.connect(DATABASE)
 c = db.cursor()
 
@@ -48,7 +48,7 @@ def floor():
     f2 = request.args.get('f2')
 
     DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db/" 
+    DATABASE+="/data/elevators.db" 
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
@@ -67,11 +67,11 @@ def stats():
 
 @form_site.route('/confirm', methods=["GET", "POST"])
 def confirm():
-    # db_name = "elevators.db/"
+    # db_name = "elevators.db"
     # db = sqlite3.connect(db_name)
     # c = db.cursor()
     DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db/"
+    DATABASE+="/data/elevators.db"
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
@@ -146,10 +146,10 @@ def logout():
 
 # Login - Returns true if successful, false otherwise
 def login_test(email, password):
-    # db = sqlite3.connect("elevators.db/")
+    # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
     DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE+="/data/elevators.db/"
+    DATABASE+="/data/elevators.db"
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 
@@ -176,13 +176,13 @@ def encrypt_password(password):
 
 # Create account - Returns true if successful, false otherwise
 def create_account(email, password):
-    # db = sqlite3.connect("elevators.db/")
+    # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
 
 
     if not does_email_exist(email) and is_valid_email(email):
         DATABASE = os.path.dirname(__file__) or '.'
-        DATABASE += "/data/elevators.db/"
+        DATABASE += "/data/elevators.db"
         print DATABASE
         db = sqlite3.connect(DATABASE)
         c = db.cursor()
@@ -197,10 +197,10 @@ def create_account(email, password):
 
 # Checks if email exists - Returns true if email exists, false otherwise
 def does_email_exist(email):
-    # db = sqlite3.connect("elevators.db/")
+    # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
     DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE += "/data/elevators.db/"
+    DATABASE += "/data/elevators.db"
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
     c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
