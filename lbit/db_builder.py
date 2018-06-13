@@ -1,3 +1,4 @@
+
 import sqlite3, hashlib   #enable control of an sqlite database
 
 f="elevators.db"
@@ -15,9 +16,10 @@ create_accounts = "CREATE TABLE accounts (email TEXT PRIMARY KEY, password TEXT)
 #1 - not working
 #2 - broken (repairs)
 
-create_elevators = "CREATE TABLE elevators (id INTEGER PRIMARY KEY, status INTEGER NOT NULL );"
+create_elevators = "CREATE TABLE elevators (id TEXT PRIMARY KEY, status INTEGER);"
+enable_elevators = "INSERT INTO elevators (id, status) VALUES ('2_3_up', 0), ('2_3_down', 0), ('2_4_up', 0), ('2_4_down', 0), ('3_5_up', 0), ('3_5_down', 0), ('4_6_up', 0), ('4_6_down', 0), ('5_7_up', 0), ('5_7_down', 0), ('6_8_up', 0), ('6_8_down', 0), ('7_9_up', 0), ('7_9_down', 0);"
 
-insert_admin = "INSERT INTO users VALUES ('test', encrypt('test'));"
+insert_admin = "INSERT INTO accounts VALUES ('test', encrypt('test'));"
 
 values_to_insert = [(23, 0), (32, 0), (24, 0), (42, 0), (35, 0), (53, 0), (46, 0), (64, 0), (57, 0), (75, 0), (68, 0), (86, 0), (79, 0), (97, 0)]
 
@@ -26,6 +28,7 @@ values_to_insert = [(23, 0), (32, 0), (24, 0), (42, 0), (35, 0), (53, 0), (46, 0
 try:
     c.execute(create_accounts)
     c.execute(create_elevators)
+    c.execute(enable_elevators)
     c.execute(insert_admin)
     c.executemany("INSERT INTO some_table ('item_num', 'item_name') VALUES (?, ?);", values_to_insert)
 except:

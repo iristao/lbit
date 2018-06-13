@@ -7,7 +7,9 @@ USER_SESSION = "logged_in"
 form_site = Flask(__name__)
 form_site.secret_key = os.urandom(64)
 
-
+db_name = "elevators.db"
+db = sqlite3.connect(db_name)
+c = db.cursor()
 
 
 #DIR = path.dirname(__file__)
@@ -54,7 +56,9 @@ def root():
 
 @form_site.route('/floor')
 def floor():
-	return render_template('floor.html', login_user=display_name())
+    f1 = request.args.get('f1')
+    f2 = request.args.get('f2')
+    return render_template('floor.html', login_user=display_name(), embedded_tweet=Markup(tweet.fin_prod), f1=f1, f2=f2)
 
 @form_site.route('/stats')
 def stats():
@@ -62,7 +66,18 @@ def stats():
 
 @form_site.route('/confirm', methods=["GET", "POST"])
 def confirm():
+    db_name = "elevators.db"
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+
     stat = request.form["status"]
+
+    message = "UPDATE elevators SET status = 1"
+    print message
+    c.execute(message)
+
+    db.commit()
+
     tweet.tweet_out("Updating escalator status to: " + stat + str(time.time()))
     #return render_template('confirm.html', status=stat)
     return redirect(url_for('root'))

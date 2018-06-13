@@ -2,10 +2,11 @@
 
 {% extends "base.html" %}
 
-
-
 {% block page_content %}
 
+{% block headers %}
+<br>
+{% endblock %}
 
 <body>
 <br>
@@ -19,6 +20,7 @@
 </div>
 
 
+
 <svg width="400" height="400" id="pic" xmlns="http://www.w3.org/2000/svg">
 
 </svg>
@@ -27,13 +29,19 @@
 <form method="POST" action="confirm">
   <input type="submit" id="working" name="status" value="Working"></input>
 </form>
-<button id="stopped" value="Stopped">Stopped</button>
-<button id="broken" value="Broken">Broken</button>
+<form method="POST" action="confirm">
+  <input type="submit" id="stopped" name="status" value="Stopped"></input>
+</form>
+<form method="POST" action="confirm">
+  <input type="submit" id="broken" name="status" value="Broken"></input>
+</form>
 
 <br><br>
 
-{{embedded_tweet}}
+
+
 
 <script src="static/js/svg.js"></script>
+
 
 {% endblock %}

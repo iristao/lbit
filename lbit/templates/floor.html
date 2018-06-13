@@ -1,45 +1,11 @@
-{% extends "base.html" %}
+{% extends "homepage.html" %}
 
-{% block style %}
-<style>
-body { font: 12px Arial;}
-
-h1 {
-	font: 40px;
-	background-color: red;
-}
-
-path { 
-  stroke: steelblue;
-	stroke-width: 2;
-	fill: none;
-}
-
-.axis path,
-.axis line {
-	fill: none;
-	stroke: grey;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
-}
-
-</style>
-{% endblock %}
-
-{% block page_content %}
-
-<svg width="400" height="400" id="pic" xmlns="http://www.w3.org/2000/svg">
-
-</svg>
-
-<br><br>
-<button id="working" value="Working">Working</button>
-<button id="stopped" value="Stopped">Stopped</button>
-<button id="broken" value="Broken">Broken</button>
+{% block headers %}
+<h1>Escalator Service for Floors {{f1}} to {{f2}}</h1>
+<h2>User: {{login_user}}</h2>
 
 <br><br>
 
-{{embedded_tweet}}
 
 <script src="static/js/svg.js"></script>
 
