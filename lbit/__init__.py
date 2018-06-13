@@ -17,7 +17,7 @@ DATABASE = os.path.dirname(__file__) or '.'
 DATABASE+="/data/elevators.db"
 db = sqlite3.connect(DATABASE)
 c = db.cursor()
-
+print DATABASE
 
 
 def display_name():
