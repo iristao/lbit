@@ -191,22 +191,25 @@ def create_account(email, password):
 
 
     if is_valid_email(email) and not does_email_exist(email):
-        # Add user to accounts table
-        DATABASE = os.path.dirname(__file__) or '.'
-        DATABASE+="/data/elevators.db"
-        datab = sqlite3.connect(DATABASE)
-        c = datab.cursor()
-        print DATABASE + "4"
-
-#        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
-        c.execute('INSERT INTO accounts VALUES (?,?)',[email, password])
-
-        datab.commit()
-        datab.close()
+        add_user(email, password)
         print "Create Account Successful"
         return True
     print "Create Account Failed"
     return False
+
+def add_user(email, password):
+    # Add user to accounts table
+    DATABASE = os.path.dirname(__file__) or '.'
+    DATABASE+="/data/elevators.db"
+    datab = sqlite3.connect(DATABASE)
+    c = datab.cursor()
+    print DATABASE + "4"
+
+#        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
+    c.execute('INSERT INTO accounts VALUES (?,?)',[email, encrypt_password(password)])
+
+    datab.commit()
+    datab.close()
 
 # Checks if email exists - Returns true if email exists, false otherwise
 def does_email_exist(email):
