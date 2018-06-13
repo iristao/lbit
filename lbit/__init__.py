@@ -178,13 +178,14 @@ def encrypt_password(password):
 def create_account(email, password):
     # db = sqlite3.connect("elevators.db")
     # c = db.cursor()
-    DATABASE = os.path.dirname(__file__) or '.'
-    DATABASE += "/data/elevators.db"
-    print DATABASE
-    db = sqlite3.connect(DATABASE)
-    c = db.cursor()
+
 
     if not does_email_exist(email) and is_valid_email(email):
+        DATABASE = os.path.dirname(__file__) or '.'
+        DATABASE += "/data/elevators.db"
+        print DATABASE
+        db = sqlite3.connect(DATABASE)
+        c = db.cursor()
         # Add user to accounts table
         c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
         db.commit()
