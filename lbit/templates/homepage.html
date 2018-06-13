@@ -2,10 +2,37 @@
 
 {% extends "base.html" %}
 
+{% block style %}
+<style>
+
+body {
+   background-image: url("../static/img/stuy.jpg");
+   background-size: 100% 100%;
+}
+
+p {
+	background-color: lightsteelblue;
+	padding: 5px;
+}
+
+h1 {
+	padding: 15px;
+}
+
+
+</style>
+
+{% endblock %}
+
+<body>
+
 {% block page_content %}
 
 {% block headers %}
+
+
 <h1>Welcome to the Stuyvesant High School Escalator Tracker!</h1>
+<p>
 Observe the current status of any Stuyvesant escalator, and feel free to update the status if there are any changes over the course of a given day
 <br>
 This is reliant on the honor system, so please be truthful, and do not abuse the buttons
@@ -13,10 +40,12 @@ This is reliant on the honor system, so please be truthful, and do not abuse the
 All status updates will automatically be live-tweeted from the StuyTracker Twitter account, as shown below
 <br>
 Key: green means working, yellow means stopped, and red means broken
+</p>
 {% endblock %}
 
-<body>
-<br>
+
+
+
 <div class = "flash">
     {% set messages = get_flashed_messages() %}
     {% for message in messages %}
@@ -49,7 +78,10 @@ Key: green means working, yellow means stopped, and red means broken
 
 
 
+
 <script src="static/js/svg.js"></script>
 
 
 {% endblock %}
+
+</body>

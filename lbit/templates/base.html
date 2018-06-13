@@ -2,14 +2,7 @@
 <html lang="en">
 
   <head>
-    <style>
-      body {
-        text-align: center;
-      }
-      blockquote {
-      text-align:center;
-      }
-    </style>
+
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,9 +11,18 @@
     <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-   {% block style %} {% endblock %}
+   {% block style %} 
+   {% endblock %}
+
+   <style>
+   h3 {
+    color: white;
+   }
+ </style>
     <!-- Page title -->
     <title> {% block title %}Escalator Tracker{% endblock %} </title>
+
+
 
   </head>
 
@@ -59,14 +61,19 @@
 
 
 Welcome, {{ login_user }}!
-            <a class="nav-link" href="{{ url_for('login') }}">Login<span class="sr-only">(current)</span></a>
-
-
-
+  {% if not session.logged_in %}
+    <a class="nav-link" href="{{ url_for('login') }}">Log in<span class="sr-only">(current)</span></a>
+  {% else %}
+    <a class="nav-link" href="{{ url_for('logout') }}">Log out<span class="sr-only">(current)</span></a>
+  {% endif %}
+            
     </nav>
     
 
     <!-- Page Content -->
+
+  <div class="content" style="width: 85%; margin: auto; text-align: center">
+
     {% block page_content %}
 
     <h1>{% block h1%} {% endblock %}</h1>
@@ -76,19 +83,25 @@ Welcome, {{ login_user }}!
     {% endblock %}
     
     {% block embed_tweets %}
-    <div style="text-align:center;">
+    <div style="text-align:center;" >
       <h3>Recent Escalator Tweet</h3><br>
-      {{embedded_tweet}}
+      <blockquote class="twitter-tweet tw-align-center">{{embedded_tweet}}</blockquote>
       <br><h3>Recent Escalator Status Update</h3><br>
-      {{timeline_tweet}}
+      <blockquote class="twitter-tweet tw-align-center">{{timeline_tweet}}</blockquote>
     </div>
     {% endblock %}
+
+  
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
+
+    </div>
 
   </body>
 </html>

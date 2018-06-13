@@ -12,8 +12,6 @@ db = sqlite3.connect(db_name)
 c = db.cursor()
 
 
-#DIR = path.dirname(__file__)
-
 def runthisthing():
     DIR = os.path.dirname(__file__) 
     if len(DIR) == 0:
@@ -25,19 +23,12 @@ def runthisthing():
 print(runthisthing())
 
 
-
-
-
-#execfile(DIR)
-
-
 def display_name():
     if is_logged():
         ans = session[USER_SESSION]
         return ans[0:ans.find('@')]
     else:
         return "Guest"
-   
 
 #create dict of usernames and passwords
 def user_dict():
