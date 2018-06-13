@@ -2,14 +2,16 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 import tweet
 import os, sqlite3, hashlib, time
 
-USER_SESSION = "logged_in"
+
 
 form_site = Flask(__name__)
 form_site.secret_key = os.urandom(64)
 
-db_name = "elevators.db"
-db = sqlite3.connect(db_name)
-c = db.cursor()
+USER_SESSION = "logged_in"
+
+# db_name = "elevators.db"
+# db = sqlite3.connect(db_name)
+# c = db.cursor()
 
 
 def runthisthing():
