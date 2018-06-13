@@ -20,22 +20,42 @@ t = Twitter(auth = OAuth(ACCESS_KEY, ACCESS_SECRET, CONSUMER_KEY, CONSUMER_SECRE
 
 #t.direct_messages.new(user="dimitriy_l21", text="I sent this from the command line")
 
-collect = t.search.tweets(q="#escalator", count=5, result_type="recent")
-
+def recent():
+    collect = t.search.tweets(q="#escalator", count=5, result_type="recent")
 #t = api.GetSearch(term="#escalator", result_type="recent", return_json=True, include_entities=True, count="1")
-collect_id = collect["statuses"][0]["id"]
-print collect_id                                                                                                                                                                       
+    collect_id = collect["statuses"][0]["id"]
+#print collect_id
+    collect_handle = collect["statuses"][0]["user"]["screen_name"]
 
-collect_handle = collect["statuses"][0]["user"]["screen_name"]
+    collect_url = "https://twitter.com/" + collect_handle + "/status/" + str(collect_id)
+#print collect_url
+    t_embed = t.statuses.oembed(url=collect_url)
+    fin_prod = t_embed["html"]
+#print fin_prod
+    return fin_prod
 
-collect_url = "https://twitter.com/" + collect_handle + "/status/" + str(collect_id)
-print collect_url
 
-t_embed = t.statuses.oembed(url=collect_url)
-fin_prod = t_embed["html"]
-print fin_prod
+def update():
+    timeline = t.search.tweets(q="StuyTracker", count=5, result_type="recent")
+    print timeline
+
+    
+    timeline_id = timeline["statuses"][0]["id"]
+    print timeline_id
+
+
+    timeline_url = "https://twitter.com/StuyTracker/status/" + str(timeline_id)
+    print timeline_url
+
+    
+    time_embed = t.statuses.oembed(url=timeline_url)
+    time_prod = time_embed["html"]
+    print time_prod
+    return time_prod
 
 def tweet_out(textual):
     t.statuses.update(status=textual)
+
+
 
 

@@ -51,8 +51,8 @@ def user_dict():
 #login page if user is not in session, otherwise welcome
 def root():
     #tweet.tweet_out("New test status: broken")
-    value = Markup(tweet.fin_prod)
-    return render_template('homepage.html', login_user=display_name(), embedded_tweet=value)
+    value = Markup(tweet.recent())
+    return render_template('homepage.html', login_user=display_name(), embedded_tweet=value, timeline_tweet=Markup(tweet.update()))
 
 @form_site.route('/floor')
 def floor():
@@ -68,7 +68,7 @@ def floor():
     c.execute('SELECT status FROM elevators WHERE id = "' + f1 + '_' + f2 + '_up"')
     up = c.fetchall()[0][0]
 
-    return render_template('floor.html', login_user=display_name(), embedded_tweet=Markup(tweet.fin_prod), down_stat=down, up_stat=up, f1=f1, f2=f2)
+    return render_template('floor.html', login_user=display_name(), embedded_tweet=Markup(tweet.recent()), timeline_tweet=Markup(tweet.update()), down_stat=down, up_stat=up, f1=f1, f2=f2)
 
 @form_site.route('/stats')
 def stats():
@@ -101,7 +101,7 @@ def confirm():
 
     db.commit()
 
-    tweet.tweet_out("Status of " + f1 + " to " + f2 + " escalator has been updated to " + stat + "\nTicks: "  + str(time.time()))
+    tweet.tweet_out("Status of " + f1 + " to " + f2 + " " + direc + " escalator has been updated to " + stat + "\nTime in ticks: "  + str(time.time()))
     #return render_template('confirm.html', status=stat)
     return redirect(url_for('root'))
 

@@ -2,6 +2,15 @@
 <html lang="en">
 
   <head>
+    <style>
+      body {
+        text-align: center;
+      }
+      blockquote {
+      text-align:center;
+      }
+    </style>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,9 +36,9 @@
       
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	<ul class="navbar-nav mr-auto">
-	  <li class="nav-item active">
+	  <!--<li class="nav-item active">
             <a class="nav-link" href="{{ url_for('stats') }}">Escalator Stats<span class="sr-only">(current)</span></a>
-	  </li>
+	  </li>-->
 
 	  <li class="dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">Go to Escalators
@@ -65,10 +74,15 @@ Welcome, {{ login_user }}!
 
 
     {% endblock %}
-
-
-    {{embedded_tweet}}
-
+    
+    {% block embed_tweets %}
+    <div style="text-align:center;">
+      <h3>Recent Escalator Tweet</h3><br>
+      {{embedded_tweet}}
+      <br><h3>Recent Escalator Status Update</h3><br>
+      {{timeline_tweet}}
+    </div>
+    {% endblock %}
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
