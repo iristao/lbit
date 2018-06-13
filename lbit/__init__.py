@@ -13,6 +13,7 @@ USER_SESSION = "logged_in"
 # db = sqlite3.connect(db_name)
 # c = db.cursor()
 
+
 def runthisthing():
     DIR = os.path.dirname(__file__) 
     if len(DIR) == 0:
@@ -48,15 +49,9 @@ def root():
 
 @form_site.route('/floor')
 def floor():
-    # db_name = "elevators.db"
-    # db = sqlite3.connect(db_name)
-    # c = db.cursor()
-
-    DIR = os.path.dirname(__file__) or ‘.’
-	DIR += ‘/’
-	DATABASE = os.path.join(DIR, 'elevators.db')
-	db = sqlite3.connect(DATABASE)
-	c = db.cursor()
+    db_name = "elevators.db"
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
 
     f1 = request.args.get('f1')
     f2 = request.args.get('f2')
