@@ -192,6 +192,8 @@ def create_account(email, password):
         DATABASE+="/data/elevators.db"
         datab = sqlite3.connect(DATABASE)
         c = datab.cursor()
+        print DATABASE
+        
         c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
         db.commit()
         db.close()
@@ -208,7 +210,7 @@ def does_email_exist(email):
     DATABASE+="/data/elevators.db"
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
-    
+
     c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
     for account in c:
         # Username exists
