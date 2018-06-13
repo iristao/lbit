@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash, Markup
-import tweet
+from utils import tweet, db
 import os, sqlite3, hashlib, time
-
 
 
 form_site = Flask(__name__)
@@ -13,22 +12,13 @@ USER_SESSION = "logged_in"
 # db = sqlite3.connect(db_name)
 # c = db.cursor()
 
+
+
 DIR = os.path.dirname(__file__) or '.'
 DIR += '/'
-DATABASE = os.path.join(DIR, 'elevators.db')
+DATABASE = DIR + '/utils/elevators.db'
 db = sqlite3.connect(DATABASE)
 c = db.cursor()
-
-def runthisthing():
-    DIR = os.path.dirname(__file__) 
-    DIR += '/'
-    if len(DIR) == 0:
-        DIR += "db_builder.py"
-    else:
-        DIR += "db_builder.py"
-    return DIR
-    
-print(runthisthing())
 
 
 
@@ -64,6 +54,8 @@ def floor():
     DATABASE = os.path.join(DIR, 'elevators.db')
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
+
+        
 
     c.execute('SELECT status FROM elevators WHERE id = "' + f1 + '_' + f2 + '_down"')
     down = c.fetchall()[0][0]

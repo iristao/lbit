@@ -1,7 +1,15 @@
-
+import sqlite3
+import os
 import sqlite3, hashlib   #enable control of an sqlite database
 
 f="elevators.db"
+
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/'
+DATABASE = os.path.join(DIR, '../data/elevators.db')
+db = sqlite3.connect(DATABASE)
+c = db.cursor()
+
 
 def encrypt_password(password):
     encrypted_pass = hashlib.sha1(password.encode('utf-8')).hexdigest()
