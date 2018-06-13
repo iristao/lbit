@@ -7,9 +7,9 @@ USER_SESSION = "logged_in"
 form_site = Flask(__name__)
 form_site.secret_key = os.urandom(64)
 
-db_name = "elevators.db"
-db = sqlite3.connect(db_name)
-c = db.cursor()
+# db_name = "elevators.db"
+# db = sqlite3.connect(db_name)
+# c = db.cursor()
 
 
 def runthisthing():
