@@ -190,15 +190,17 @@ def create_account(email, password):
     # c = datab.cursor()
 
 
-    if not does_email_exist(email) and is_valid_email(email):
+    if is_valid_email(email) and not does_email_exist(email):
         # Add user to accounts table
         DATABASE = os.path.dirname(__file__) or '.'
-        DATABASE += "/data/elevators.db"
+        DATABASE+="/data/elevators.db"
         datab = sqlite3.connect(DATABASE)
         c = datab.cursor()
-        print DATABASE + "5"
+        print DATABASE + "4"
 
-        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
+#        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
+        c.execute('INSERT INTO accounts VALUES (?,?)',[new_username, hash_pass])
+
         datab.commit()
         datab.close()
         print "Create Account Successful"
