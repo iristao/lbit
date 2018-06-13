@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 import tweet
 import os, sqlite3, hashlib, time
 
+print(os.getcwd())
+
 USER_SESSION = "logged_in"
 
 form_site = Flask(__name__)
