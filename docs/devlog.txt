@@ -37,3 +37,9 @@ deployment test
 
 irisT -- 2018-05-25 08:00
 linked droplet to lbit github repo
+
+irisT -- 2018-06-13 04:00
+made small changes to frontend & linked logout button
+
+irisT -- 2018-06-13 07:00
+debugged 
