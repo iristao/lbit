@@ -3,26 +3,17 @@ import tweet
 import os, sqlite3, hashlib, time
 
 
-
-
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-
-
-DIR = os.path.dirname(__file__) or ‘.’
-DIR += ‘/’
-
-DATABASE = os.path.join(DIR, 'elevators.db')
-
-
-db = sqlite3.connect(DATABASE)
-c = db.cursor()
-
-
 USER_SESSION = "logged_in"
 
 form_site = Flask(__name__)
 form_site.secret_key = os.urandom(64)
 
+
+# DIR = os.path.dirname(__file__) or ‘.’
+# DIR += ‘/’
+# DATABASE = os.path.join(DIR, 'elevators.db')
+# db = sqlite3.connect(DATABASE)
+# c = db.cursor()
 
 
 
@@ -61,10 +52,15 @@ def root():
 
 @form_site.route('/floor')
 def floor():
-    db_name = "elevators.db"
-    
-    db = sqlite3.connect(os.path.join(RootPath,'elevators.db'))
-    c = db.cursor()
+    # db_name = "elevators.db"
+    # db = sqlite3.connect(os.path.join(RootPath,'elevators.db'))
+    # c = db.cursor()
+
+    DIR = os.path.dirname(__file__) or ‘.’
+	DIR += ‘/’
+	DATABASE = os.path.join(DIR, 'elevators.db')
+	db = sqlite3.connect(DATABASE)
+	c = db.cursor()
 
     f1 = request.args.get('f1')
     f2 = request.args.get('f2')
