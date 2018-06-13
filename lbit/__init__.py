@@ -199,7 +199,7 @@ def create_account(email, password):
         print DATABASE + "4"
 
 #        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
-        c.execute('INSERT INTO accounts VALUES (?,?)',[new_username, hash_pass])
+        c.execute('INSERT INTO accounts VALUES (?,?)',[email, encrypt_password(password)])
 
         datab.commit()
         datab.close()
