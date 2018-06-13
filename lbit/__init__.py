@@ -144,10 +144,10 @@ def login():
         else:
             if(password != request.form["confirm_password"]):
                 flash("Oops! Your Password and Confirm Password did not match. :(")
-            elif does_email_exist(email) or not is_valid_email(email):
-                flash("Invalid Email Address: It must be a  @stuy.edu email address that has not been previously registered.")
-            else:
+            if create_account(email, password):
                 flash("Congratulations! You have created an account successfully. :)")
+            else:
+                flash("Invalid Email Address: It must be a  @stuy.edu email address that has not been previously registered.")
     return render_template("login.html", login_user=display_name())
 
 @form_site.route("/logout")
