@@ -79,7 +79,7 @@ def confirm():
     # db = sqlite3.connect(db_name)
     # c = db.cursor()
     db = sqlite3.connect(DATABASE)
-    c = db.cursor()
+    c = db.cursor
 
     stat = request.form["status"]
     print stat
