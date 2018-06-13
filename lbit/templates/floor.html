@@ -3,10 +3,50 @@
 {% block headers %}
 <h1>Escalator Service for Floors {{f1}} to {{f2}}</h1>
 <h2>User: {{login_user}}</h2>
+<h2>Up Status: <div id="up_stat">{{up_stat}}</div></h2>
+<h2>Down Status: <div id="down_stat">{{down_stat}}</div></h2>
 
 <br><br>
 
 
+
+
 <script src="static/js/svg.js"></script>
 
+{% endblock %}
+
+{% block svg %}
+<svg width="1000" height="400" id="pic" xmlns="http://www.w3.org/2000/svg">
+
+</svg>
+<br><br>
+
+<svg width="400" height="400" id="pic2" xmlns="http://www.w3.org/2000/svg">
+
+</svg>
+
+
+<br><br>
+<form method="POST" action="confirm">
+  <select name="direction">
+    <option value="up">Up</option>
+    <option value="down">Down</option>
+  </select>
+  <input type="hidden" name="bottom" value={{f1}}></input>  
+  <input type="hidden" name="top" value={{f2}}></input>
+  <!--<input type="hidden" name="direction" value="up"></input>-->
+  <input type="submit" id="working" name="status" value="Working">{{f1}}</input>
+<!--</form>
+<form method="POST" action="confirm">
+  <input type="hidden" name="bottom" value={{f1}}></input>  
+  <input type="hidden" name="top" value={{f2}}></input>
+  <input type="hidden" name="direction" value="up"></input>-->
+  <input type="submit" id="stopped" name="status" value="Stopped">{{f2}}</input>
+<!--</form>
+<form method="POST" action="confirm">
+  <input type="hidden" name="bottom" value={{f1}}></input>  
+  <input type="hidden" name="top" value={{f2}}></input>
+  <input type="hidden" name="direction" value="up"></input>-->
+  <input type="submit" id="broken" name="status" value="Broken"></input>
+</form>
 {% endblock %}

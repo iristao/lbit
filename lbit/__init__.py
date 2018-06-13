@@ -56,9 +56,19 @@ def root():
 
 @form_site.route('/floor')
 def floor():
+    db_name = "elevators.db"
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+
     f1 = request.args.get('f1')
     f2 = request.args.get('f2')
-    return render_template('floor.html', login_user=display_name(), embedded_tweet=Markup(tweet.fin_prod), f1=f1, f2=f2)
+
+    c.execute('SELECT status FROM elevators WHERE id = "' + f1 + '_' + f2 + '_down"')
+    down = c.fetchall()[0][0]
+    c.execute('SELECT status FROM elevators WHERE id = "' + f1 + '_' + f2 + '_up"')
+    up = c.fetchall()[0][0]
+
+    return render_template('floor.html', login_user=display_name(), embedded_tweet=Markup(tweet.fin_prod), down_stat=down, up_stat=up, f1=f1, f2=f2)
 
 @form_site.route('/stats')
 def stats():
@@ -71,14 +81,27 @@ def confirm():
     c = db.cursor()
 
     stat = request.form["status"]
+    print stat
 
-    message = "UPDATE elevators SET status = 1"
+    f1 = request.form["bottom"]
+    f2 = request.form["top"]
+    direc = request.form["direction"]
+
+    esco_key = f1 + "_" + f2 + "_" + direc
+    print esco_key
+
+    if (stat == "Broken"):
+        message = 'UPDATE elevators SET status = 2 WHERE id = ' + '"' + esco_key + '"'
+    elif (stat == "Stopped"):
+        message = 'UPDATE elevators SET status = 1 WHERE id = ' + '"' + esco_key + '"'
+    else:
+        message = 'UPDATE elevators SET status = 0 WHERE id = ' + '"' + esco_key + '"'
     print message
     c.execute(message)
 
     db.commit()
 
-    tweet.tweet_out("Updating escalator status to: " + stat + str(time.time()))
+    tweet.tweet_out("Status of " + f1 + " to " + f2 + " escalator has been updated to " + stat + "\nTicks: "  + str(time.time()))
     #return render_template('confirm.html', status=stat)
     return redirect(url_for('root'))
 
