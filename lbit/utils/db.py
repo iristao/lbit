@@ -4,18 +4,17 @@ import sqlite3, hashlib   #enable control of an sqlite database
 
 f="elevators.db"
 
-DIR = os.path.dirname(__file__) or '.'
-DIR += '/'
-DATABASE = os.path.join(DIR, '../data/elevators.db')
-db = sqlite3.connect(DATABASE)
-c = db.cursor()
 
 
 def encrypt_password(password):
     encrypted_pass = hashlib.sha1(password.encode('utf-8')).hexdigest()
     return encrypted_pass
 
-db = sqlite3.connect(f, check_same_thread=False) #open if f exists, otherwise create
+
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/'
+DATABASE = os.path.join(DIR, '../data/elevators.db')
+db = sqlite3.connect(DATABASE, check_same_thread=False)
 db.create_function('encrypt', 1, encrypt_password)
 c = db.cursor()    #facilitate db ops
 
