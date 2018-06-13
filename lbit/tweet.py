@@ -37,20 +37,20 @@ def recent():
 
 def update():
     timeline = t.search.tweets(q="StuyTracker", count=5, result_type="recent")
-    print timeline
+   # print timeline
 
     
     timeline_id = timeline["statuses"][0]["id"]
-    print timeline_id
+  #  print timeline_id
 
 
     timeline_url = "https://twitter.com/StuyTracker/status/" + str(timeline_id)
-    print timeline_url
+ #   print timeline_url
 
     
     time_embed = t.statuses.oembed(url=timeline_url)
     time_prod = time_embed["html"]
-    print time_prod
+#    print time_prod
     return time_prod
 
 def tweet_out(textual):
