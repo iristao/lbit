@@ -15,6 +15,7 @@ DATABASE+="/../data/elevators.db"
 db = sqlite3.connect(DATABASE, check_same_thread=False)
 db.create_function('encrypt', 1, encrypt_password)
 c = db.cursor()    #facilitate db ops
+print DATABASE + "xxx"
 
 create_accounts = "CREATE TABLE accounts (email TEXT PRIMARY KEY, password TEXT);"
 #0 - default status (working)
