@@ -1,19 +1,19 @@
 import os
+from os import path
 import sqlite3, hashlib   #enable control of an sqlite database
 
 
-
+DATABASE = path.dirname(__file__) + "/../data/closet.db"
+print "DIR: " + DATABASE
 
 def encrypt_password(password):
     encrypted_pass = hashlib.sha1(password.encode('utf-8')).hexdigest()
     return encrypted_pass
 
 
-DATABASE = os.path.dirname(__file__) or '.'
-DATABASE+="/../data/elevators.db"
-db = sqlite3.connect(DATABASE, check_same_thread=False)
-db.create_function('encrypt', 1, encrypt_password)
-c = db.cursor()    #facilitate db ops
+datab = sqlite3.connect(DATABASE, check_same_thread=False)
+datab.create_function('encrypt', 1, encrypt_password)
+c = datab.cursor()    #facilitate db ops
 print DATABASE + "xxx"
 
 create_accounts = "CREATE TABLE accounts (email TEXT PRIMARY KEY, password TEXT);"
@@ -39,7 +39,7 @@ try:
 except:
     pass
 
-db.commit() #save changes
+datab.commit() #save changes
 #db.close()  #close database
 
 
@@ -80,18 +80,17 @@ def create_account(email, password):
 
 def add_user(email, password):
     # Add user to accounts table
-    f = os.path.dirname(__file__) + "/../../data/elevators.db"
-    datab = sqlite3.connect(f) #open if f exists, otherwise creat
-    c = datab.cursor()
-    hash_pass = encrypt_password(password)
-    print ('The string to store in the db is: ' + hash_pass)
-    c.execute('INSERT INTO accounts VALUES (?,?)',[email, hash_pass])
+	datab = sqlite3.connect(DATABASE) #open if f exists, otherwise creat
+	c = datab.cursor()
+	hash_pass = encrypt_password(password)
+	print ('The string to store in the db is: ' + hash_pass)
+	c.execute('INSERT INTO accounts VALUES("%s", "%s");' %(email, hash_pass))
 
 #    c.execute("INSERT INTO accounts VALUES ('%s', '%s')" % (email, encrypt_password(password)))
 
-    print "it got added bro"
-    datab.commit()
-    datab.close()
+	print "it got added bro"
+	datab.commit()
+	datab.close()
 
 # Checks if email exists - Returns true if email exists, false otherwise
 def does_email_exist(email):
