@@ -35,6 +35,9 @@ worked on design document
 dimitriyL -- 2018-05-15 21:00
 Contributed to the design document (added some images, etc.)
 
+jonesR — 2018-05-15 21:30
+design document
+
 irisT -- 2018-05-17 07:30
 deployment test
 
@@ -47,6 +50,9 @@ Began exploring Twitter api, and created initial templates for pages
 irisT -- 2018-05-25 08:00
 linked droplet to lbit github repo
 
+jonesR — 2018-05-31 21:30
+login works
+
 dimitriyL -- 2018-06-04 20:30
 Added Bootstrap features and created escalator SVG
 Figured out how to link the Twitter API, and made preliminary command line calls
@@ -54,6 +60,9 @@ Figured out how to link the Twitter API, and made preliminary command line calls
 dimitriyL -- 2018-06-07 13:45
 Changed the Bootstrap header bar on the top of the page
 Found away to retrieve Tweets using the API in JSON form
+
+jonesR — 2018-06-08 21:30
+bootstrap adjustments
 
 dimitriyL --  2018-06-08 21:15
 Figured out how to get Tweet URLs and embed them into the page
@@ -73,3 +82,9 @@ made small changes to frontend & linked logout button
 
 irisT -- 2018-06-13 07:00
 debugged 
+
+jonesR — 2018-05-15 8:00
+everything works locally
+
+jonesR — 2018-06-13 22:00
+got everything to work on server
