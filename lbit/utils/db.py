@@ -3,13 +3,13 @@ from os import path
 import sqlite3, hashlib   #enable control of an sqlite database
 
 
-DATABASE = path.dirname(__file__) + "/../data/closet.db"
-print "DIR: " + DATABASE
 
 def encrypt_password(password):
     encrypted_pass = hashlib.sha1(password.encode('utf-8')).hexdigest()
     return encrypted_pass
 
+DATABASE = path.dirname(__file__) + "/../data/closet.db"
+print "DIR: " + DATABASE
 
 datab = sqlite3.connect(DATABASE, check_same_thread=False)
 datab.create_function('encrypt', 1, encrypt_password)
