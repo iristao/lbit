@@ -1,4 +1,3 @@
-import sqlite3
 import os
 import sqlite3, hashlib   #enable control of an sqlite database
 
@@ -42,3 +41,75 @@ except:
 
 db.commit() #save changes
 #db.close()  #close database
+
+
+# Login - Returns true if successful, false otherwise
+def login_test(email, password):
+    # datab = sqlite3.connect("elevators.db")
+    # c = datab.cursor()
+
+    c.execute("SELECT email, password FROM accounts WHERE email = '%s'" % (email));
+    for account in c:
+        print account
+        uemail = account[0]
+        passw = account[1]
+        # Check if email and encrypted password match
+        if email == uemail and encrypt_password(password) == passw:
+            print "Successful Login"
+            return True
+    print "Login Failed"
+    return False
+
+# Encrypt password - Returns SHA256
+def encrypt_password(password):
+    encrypted = hashlib.sha256(password).hexdigest()
+    return encrypted
+
+# Create account - Returns true if successful, false otherwise
+def create_account(email, password):
+    # datab = sqlite3.connect("elevators.db")
+    # c = datab.cursor()
+
+
+    if is_valid_email(email) and not does_email_exist(email):
+        add_user(email, password)
+        print "Create Account Successful"
+        return True
+    print "Create Account Failed"
+    return False
+
+def add_user(email, password):
+    # Add user to accounts table
+    f = os.path.dirname(__file__) + "/../data/elevators.db"
+    datab = sqlite3.connect(f) #open if f exists, otherwise creat
+    c = datab.cursor()
+    hash_pass = encrypt_password(password)
+    print ('The string to store in the db is: ' + hash_pass)
+    c.execute('INSERT INTO accounts VALUES (?,?)',[email, hash_pass])
+
+#    c.execute("INSERT INTO accounts VALUES ('%s', '%s')" % (email, encrypt_password(password)))
+
+    print "it got added bro"
+    datab.commit()
+    datab.close()
+
+# Checks if email exists - Returns true if email exists, false otherwise
+def does_email_exist(email):
+    # datab = sqlite3.connect("elevators.db")
+    # c = datab.cursor()
+
+    c.execute("SELECT email FROM accounts WHERE email = '%s'" % (email))
+    for account in c:
+        # Username exists
+        print "Email exists"
+        return True
+    print "Email does not exist"
+    return False
+
+# Checks if email is stuy.edu - Returns true if it is, false otherwise
+def is_valid_email(email):
+    if (email.find("@stuy.edu") != -1) and (email.split("@")[1] == "stuy.edu"):
+        print "Valid Email"
+        return True
+    print "Invalid Email"
+    return False

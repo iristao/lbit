@@ -13,12 +13,6 @@ USER_SESSION = "logged_in"
 # c = datab.cursor()
 
 
-DATABASE = os.path.dirname(__file__) or '.'
-DATABASE+="/data/elevators.db"
-datab = sqlite3.connect(DATABASE)
-c = datab.cursor()
-print DATABASE + "0"
-
 
 def display_name():
     if is_logged():
@@ -119,7 +113,7 @@ def add_session(username, password):
     if is_null(username, password, "filler"):
         flash("Username or password is blank")
         return False
-    if(login_test(username, password)):
+    if(db.login_test(username, password)):
         session[USER_SESSION] = username
         return True
     else:
@@ -141,7 +135,7 @@ def login():
         else:
             if(password != request.form["confirm_password"]):
                 flash("Oops! Your Password and Confirm Password did not match. :(")
-            if create_account(email, password):
+            if db.create_account(email, password):
                 flash("Congratulations! You have created an account successfully. :)")
             else:
                 flash("Invalid Email Address: It must be a  @stuy.edu email address that has not been previously registered.")
@@ -152,7 +146,7 @@ def logout():
     if is_logged():
         session.pop(USER_SESSION)
     return redirect(url_for("login"))
-
+'''
 # Login - Returns true if successful, false otherwise
 def login_test(email, password):
     # datab = sqlite3.connect("elevators.db")
@@ -174,11 +168,11 @@ def login_test(email, password):
             return True
     print "Login Failed"
     return False
-
+'''
 #update twitter status with each change
 def tweet_out(textual):
     tweet.tweet_out(textual)
-    
+''' 
 # Encrypt password - Returns SHA256
 def encrypt_password(password):
     encrypted = hashlib.sha256(password).hexdigest()
@@ -238,7 +232,7 @@ def is_valid_email(email):
     print "Invalid Email"
     return False
 
-
+'''
 #================= Debug =================
 #DANGER DANGER! Set to FALSE before deployment!
 
