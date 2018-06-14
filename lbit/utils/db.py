@@ -8,7 +8,7 @@ def encrypt_password(password):
     encrypted_pass = hashlib.sha1(password.encode('utf-8')).hexdigest()
     return encrypted_pass
 
-DATABASE = path.dirname(__file__) + "/../data/closet.db"
+DATABASE = path.dirname(__file__) + "/../data/elevators.db"
 print "DIR: " + DATABASE
 
 datab = sqlite3.connect(DATABASE, check_same_thread=False)
