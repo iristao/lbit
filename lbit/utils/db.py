@@ -80,7 +80,7 @@ def create_account(email, password):
 
 def add_user(email, password):
     # Add user to accounts table
-    f = os.path.dirname(__file__) + "/../data/elevators.db"
+    f = os.path.dirname(__file__) + "/../../data/elevators.db"
     datab = sqlite3.connect(f) #open if f exists, otherwise creat
     c = datab.cursor()
     hash_pass = encrypt_password(password)
