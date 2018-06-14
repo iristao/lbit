@@ -204,10 +204,11 @@ def add_user(email, password):
     datab = sqlite3.connect(DATABASE)
     c = datab.cursor()
     print DATABASE + "4"
+    print ('The string to store in the db is: ' + encrypt_password(password))
 
 #        c.execute("INSERT INTO accounts VALUES('%s', '%s')" % (email, encrypt_password(password)))
     c.execute('INSERT INTO accounts VALUES (?,?)',[email, encrypt_password(password)])
-
+    print "it got added bro"
     datab.commit()
     datab.close()
 
